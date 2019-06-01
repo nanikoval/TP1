@@ -1,33 +1,62 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Serie {
+public class Serie implements Contenido{
 
-    private Capitulo capitulo;
+    //private Integer cantidadDeTemporadas;   //a priori no lo pide
 
-    private Temporada temporada;
+    private String genero;
 
-    private Integer cantidadDeTemporadas;   //pensar si es necesario un array fijo
+    private List<Actor> actoresProtagonistas = new ArrayList<>();
 
     private List<Temporada> temporadasEnSerie = new ArrayList<>();
 
 
-    public void agregarTemporadasASerie(Temporada temporada){
+    public void agregarTemporadaASerie(Temporada temporada){
 
         this.temporadasEnSerie.add(temporada);
+        temporada.setGenero(this.getGenero());                      //PUNTO 4
 
     }
 
+
+    //PUNTO 1
+
+    public Boolean estaVistoCompleto(Contenido contenido){
+        return user.getContenidosVistos().stream().            ///////falta
+    }
+
+
     //PUNTO 2
-    public Integer duracionSerie() {
-        return this.temporadasEnSerie.stream().map(temporada -> temporada.duracionTemporada()).reduce(0,Integer::sum);
+
+    public Integer cuantoDura() {
+
+        return this.temporadasEnSerie.stream().map(temporada -> temporada.cuantoDura()).reduce(0,Integer::sum);
+
     }
 
 
     //PUNTO 3
-    public Capitulo ultimoCapituloDisponible(){
-        return this.temporadasEnSerie.get(temporadasEnSerie.size()-1).ultimoCapituloDisponibleDesdeTemp();
+
+    public Capitulo ultimoCapituloDisponibleDeLaSerie(){
+
+        return this.temporadasEnSerie.get(temporadasEnSerie.size()-1).ultimoCapituloDisponibleDeLaTemp();
+
     }
+
+
+    //PUNTO 4
+
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String cualEsElGenero(){
+        return this.getGenero();
+    }
+
+
 
 
 }

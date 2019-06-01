@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class Capitulo {
+public class Capitulo implements Contenido, ContenidoUnitario{
 
     private  Integer numero;
 
@@ -8,9 +8,9 @@ public class Capitulo {
 
     private Integer duracion;
 
-    private List<Actor>actores;
-
     private String genero;
+
+    private List<Actor>actoresInvitados;
 
 
 
@@ -18,7 +18,6 @@ public class Capitulo {
         this.numero = numero;
         this.nombre = nombre;
         this.duracion = duracion;
-        this.genero = genero;
     }
 
 
@@ -30,11 +29,37 @@ public class Capitulo {
         return nombre;
     }
 
-    public Integer getDuracion() {           //punto 2 desp ver temp y serie
+    public Integer getDuracion() {
         return duracion;
+    }
+
+
+    //PUNTO 1
+
+    public Boolean estaVistoCompleto(User user){
+
+        return user.getContenidosVistos().contains(this);
+    }
+
+
+    //PUNTO 2
+
+    public Integer cuantoDura(){
+
+        return this.getDuracion();
+    }
+
+
+    //PUNTO 4
+
+    protected void setGenero(String genero) {
+        this.genero = genero;
     }
 
     public String getGenero() {
         return genero;
     }
+
+
+
 }

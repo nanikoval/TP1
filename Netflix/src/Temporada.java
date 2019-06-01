@@ -1,21 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Temporada {
+public class Temporada implements Contenido{
 
 
     private Integer numero;
+
+    private String genero;
 
     private Integer cantidadDeCapitulos;   //pensar si es necesario un array fijo
 
     private List<Capitulo> capitulosEnTemporada = new ArrayList<>();
 
 
-    public void agregarCapitulosATemporada(Capitulo capitulo){
-
-        this.capitulosEnTemporada.add(capitulo);
-
+    public Temporada (Integer numero, Integer cantidadDeCapitulos){
+        this.numero = numero;
+        this.cantidadDeCapitulos = cantidadDeCapitulos;
     }
+
 
     public List<Capitulo> getCapitulosEnTemporada() {
 
@@ -23,22 +25,56 @@ public class Temporada {
 
     }
 
-    //PUNTO 3 (responsabilidad en Serie)
-    public Capitulo ultimoCapituloDisponibleDesdeTemp(){
+    public Integer getNumero() {
 
-        return this.capitulosEnTemporada.get(capitulosEnTemporada.size()-1);
+        return numero;
 
     }
 
+    public void agregarCapitulosATemporada(Capitulo capitulo){
+
+        this.capitulosEnTemporada.add(capitulo);
+        capitulo.setGenero(this.getGenero());                 //PUNTO 4
+
+    }
+
+
+    //PUNTO 1
+
+    public Boolean estaVistoCompleto(User user){
+        return user.getContenidosVistos().                  ///////falta
+
+    }
+
+
     //PUNTO 2
-    public Integer duracionTemporada() {
+
+    public Integer cuantoDura() {
 
         return this.capitulosEnTemporada.stream().map(capitulo -> capitulo.getDuracion()).reduce(0,Integer::sum);
 
     }
 
+    //PUNTO 3 (responsabilidad en Serie)
 
-    public Integer getNumero() {
-        return numero;
+    protected Capitulo ultimoCapituloDisponibleDeLaTemp(){
+
+        return this.capitulosEnTemporada.get(capitulosEnTemporada.size()-1);
+
     }
+
+
+    //PUNTO 4
+
+
+    protected void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+
+
 }
