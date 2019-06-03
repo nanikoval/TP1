@@ -10,4 +10,6 @@ public class Actor {
     }
 
 
+   // public User sonMisFans(){ }
+
 }

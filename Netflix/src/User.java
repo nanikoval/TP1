@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class User {
@@ -9,52 +10,77 @@ public class User {
 
     private ContenidoUnitario contenidoUnitario;
 
-    private List <ContenidoUnitario> contenidosVistos = new ArrayList<>();
-
-
-    public void play(ContenidoUnitario contenidoUnitario){
-
-        //reproduce el contenido y:
-        this.getContenidosVistos().add(contenidoUnitario);
-      //  this.generosVistos.add(map de generos de los contenidos)
-
-        //if contenido es el ultimo cap de la temp agregar temporada
-        //if contenido es el ultimo cap de la serie agregar serie
-    }
-
+    private List <Contenido> contenidosVistos = new ArrayList<>();   //unit
 
     public Contenido getContenido() {
         return contenido;
     }
 
-    public List<ContenidoUnitario> getContenidosVistos() {
+    public List<Contenido> getContenidosVistos() {                 //unit
 
         return contenidosVistos;
     }
 
-    //PUNTO 1
 
-    public Boolean vioCompleto(Contenido contenido) {
+    public void play(Contenido contenido){                       //unit
 
-        return this.contenido.estaVistoCompleto(this);
+        //reproduce el contenido y:
+        this.getContenidosVistos().add(contenido);
 
-        //return this.contenidosVistos.contains(contenido);
-
-        //ver que pasa con temp y serie //contains??????
-        //return this.contenido.estaVistoCompleto(contenido);
-
+        //idea
+        //if contenido es el ultimo cap de la temp, agregar temporada
+        //if contenido es el ultimo cap de la serie, agregar serie
     }
 
 
 
+    //PUNTO 1
 
-   // public String generosVistosSinRepeticion(){
-   //     return this.generosVistos.stream().distinct().collect(Collectors.toSet());
-   // }
+    public Boolean vioCompleto(Contenido contenido) {        // por que no agarra el contenido del parametro
+
+        return contenido.estaVistoCompletoPor(this);
+
+        //return contenidosVistos.stream().filter(contenido -> estaVistoCompletoPor(this));
+
+        //return this.contenidosVistos.stream().allMatch(c->c.estaVistoCompletoPor(this);
+
+    }
 
 
+    //PUNTO 4
+    //A
+
+    public Set<Object> generosVistosSinRepeticion(){
+
+        return this.contenidosVistos.stream().map(c->c.getGenero()).distinct().collect(Collectors.toSet());
+
+    }
+
+    //B
+
+    public Integer minutosVistosDe(String genero){
+
+        return this.getContenidosVistos().stream().filter(c->c.getGenero().equals(genero)).mapToInt(c->c.cuantoDura()).sum();  //ver bien como func
+
+    }
 
 
+   // public String generoPreferido(){
+
+     //   return this.minutosVistosDe(this.generosVistosSinRepeticion().forEach();)   ////////////////falta
+        //una funcion que recorra los generosVistosSinRep
+
+    //}
+
+
+    //PUNTO 5
+    //B
+
+    public Boolean esFanDe(Actor actor){
+
+        return this.contenidosVistos.stream().allMatch(c->c.getActores().contains(actor));
+
+    }
 
 
 

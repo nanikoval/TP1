@@ -5,16 +5,26 @@ public class Serie implements Contenido{
 
     //private Integer cantidadDeTemporadas;   //a priori no lo pide
 
+    private String nombre;
+
     private String genero;
 
-    private List<Actor> actoresProtagonistas = new ArrayList<>();
+    private List<Actor> actores = new ArrayList<>();
 
     private List<Temporada> temporadasEnSerie = new ArrayList<>();
 
 
+
+
+    public Serie(String nombre, String genero){
+        this.nombre = nombre;
+        this.genero = genero;
+    }
+
+
     public void agregarTemporadaASerie(Temporada temporada){
 
-        this.temporadasEnSerie.add(temporada);
+        this.getTemporadasEnSerie().add(temporada);
         temporada.setGenero(this.getGenero());                      //PUNTO 4
 
     }
@@ -22,8 +32,15 @@ public class Serie implements Contenido{
 
     //PUNTO 1
 
-    public Boolean estaVistoCompleto(Contenido contenido){
-        return user.getContenidosVistos().stream().            ///////falta
+
+    public List<Temporada> getTemporadasEnSerie() {
+        return temporadasEnSerie;
+    }
+
+    public Boolean estaVistoCompletoPor(User user){
+        return this.getTemporadasEnSerie().stream().allMatch(t->t.getCapitulosEnTemporada().stream().allMatch(c->c.estaVistoCompletoPor(user)));
+
+               //opc2    this.getTemporadasEnSerie().stream().allMatch(t->t.getCapitulosEnTemporada().contains(user.getContenidosVistos())); ??
     }
 
 
@@ -31,7 +48,7 @@ public class Serie implements Contenido{
 
     public Integer cuantoDura() {
 
-        return this.temporadasEnSerie.stream().map(temporada -> temporada.cuantoDura()).reduce(0,Integer::sum);
+        return this.getTemporadasEnSerie().stream().map(temporada -> temporada.cuantoDura()).reduce(0,Integer::sum);
 
     }
 
@@ -40,7 +57,7 @@ public class Serie implements Contenido{
 
     public Capitulo ultimoCapituloDisponibleDeLaSerie(){
 
-        return this.temporadasEnSerie.get(temporadasEnSerie.size()-1).ultimoCapituloDisponibleDeLaTemp();
+        return this.getTemporadasEnSerie().get(getTemporadasEnSerie().size()-1).ultimoCapituloDisponibleDeLaTemp();
 
     }
 
@@ -52,10 +69,26 @@ public class Serie implements Contenido{
         return genero;
     }
 
-    public String cualEsElGenero(){
-        return this.getGenero();
+
+    //PUNTO 5
+    //A
+
+    public void agregarActor(Actor actor){
+        this.getActores().add(actor);
     }
 
+
+    public Boolean actua(Actor actor){
+
+        return this.getActores().contains(actor);      //faltan los invitados????
+    }
+
+
+    //B
+
+    public List<Actor> getActores() {
+        return actores;
+    }
 
 
 

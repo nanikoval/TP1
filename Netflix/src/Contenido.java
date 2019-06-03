@@ -1,14 +1,16 @@
+import java.util.List;
+
 public interface Contenido {
 
 
-    Boolean estaVistoCompleto(User user);
+    Boolean estaVistoCompletoPor(User user);
 
     Integer cuantoDura();
 
-    //String cualEsElGenero();
+    String getGenero();
 
-    //Boolean actua(Actor actor);
+    Boolean actua(Actor actor);
 
-
+    List<Actor> getActores();
 
 }

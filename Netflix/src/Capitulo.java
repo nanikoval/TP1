@@ -10,14 +10,17 @@ public class Capitulo implements Contenido, ContenidoUnitario{
 
     private String genero;
 
+    private Serie serieALaQuePertenece;
+
     private List<Actor>actoresInvitados;
 
 
 
-    public Capitulo (Integer numero, String nombre, Integer duracion, String genero){
+    public Capitulo (Integer numero, String nombre, Integer duracion, String genero, Serie serieALaQuePertenece){
         this.numero = numero;
         this.nombre = nombre;
         this.duracion = duracion;
+        this.serieALaQuePertenece = serieALaQuePertenece;
     }
 
 
@@ -25,18 +28,16 @@ public class Capitulo implements Contenido, ContenidoUnitario{
         return numero;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
-    public Integer getDuracion() {
+    protected Integer getDuracion() {
         return duracion;
     }
 
 
     //PUNTO 1
 
-    public Boolean estaVistoCompleto(User user){
+    public Boolean estaVistoCompletoPor(User user){
 
         return user.getContenidosVistos().contains(this);
     }
@@ -60,6 +61,28 @@ public class Capitulo implements Contenido, ContenidoUnitario{
         return genero;
     }
 
+
+
+    //PUNTO 5
+
+    //A
+
+    public Boolean actua(Actor actor){
+
+        return this.serieALaQuePertenece.getActores().contains(actor) && this.getActoresInvitados().contains(actor);
+    }
+
+    //B
+
+    public List<Actor> getActores() {
+        return this.serieALaQuePertenece.getActores();   //&& this.getActoresInvitados();
+
+    }
+
+
+    public List<Actor> getActoresInvitados() {
+        return actoresInvitados;
+    }
 
 
 }
